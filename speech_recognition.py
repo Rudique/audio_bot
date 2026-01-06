@@ -50,8 +50,7 @@ def transcribe_audio(audio_path: str, language: str = "ru") -> str:
             beam_size=1,  # Минимальный для максимальной скорости
             vad_filter=True,  # Фильтр голосовой активности
             vad_parameters=dict(
-                min_silence_duration_ms=500,  # Быстрее пропускаем паузы
-                threshold=0.5  # Порог для определения речи
+                min_silence_duration_ms=500  # Быстрее пропускаем паузы
             ),
             condition_on_previous_text=False,  # Отключаем контекст - ускоряет
             temperature=0.0,  # Детерминированный вывод
