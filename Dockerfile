@@ -9,6 +9,10 @@ RUN apt-get update && apt-get install -y \
 # Устанавливаем рабочую директорию
 WORKDIR /app
 
+# Переменные окружения для оптимизации ONNX Runtime (убираем warning про GPU)
+ENV ORT_DISABLE_ALL_PROVIDERS=1
+ENV ORT_ENABLE_BASIC_PROVIDER=1
+
 # Копируем requirements.txt
 COPY requirements.txt .
 
