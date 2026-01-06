@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  audio-bot:
+    build: .
+    container_name: telegram-audio-bot
+    restart: unless-stopped
+    env_file:
+      - .env
+    volumes:
+      # Монтируем директорию для кеша моделей Whisper (чтобы не скачивать каждый раз)
+      - whisper-models:/root/.cache/huggingface
+      # Опционально: монтируем логи (если захотите сохранять)
+      # - ./logs:/app/logs
+    environment:
+      - PYTHONUNBUFFERED=1
+    # Ограничение ресурсов (опционально, настройте под свой сервер)
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 2G
+        reservations:
+          memory: 512M
+
+volumes:
+  whisper-models:
+    driver: local
